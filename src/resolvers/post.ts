@@ -59,7 +59,8 @@ export const addEvent = async(ctx:Context):Promise<EventSchema|undefined> => {
         ctx.response.status = 400
         throw new Error("No se pudo agregar el evento")
     }
-    ctx.response.body = "Evento agregado correctamente"
+    const returnEvent = await EventsCollection.findOne({_id:event})
+    ctx.response.body = returnEvent
     ctx.response.status = 200
     return;
     }catch(e){
